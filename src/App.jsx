@@ -1,4 +1,6 @@
 import NavBar from "./components/NavBar";
+import ItemListContainer from "./components/ItemListContainer";
+
 
 
 
@@ -6,21 +8,10 @@ function App() {
   return (
     <div>
       <NavBar />
+      <ItemListContainer greeting={"Hola Mundo"}/>
     </div>
     );
 }
-
-// function Title() {
-//   return (
-//     <h1>Hola Clase</h1>
-//   )
-// }
-
-// function Description() {
-//   return (
-//     <p>Este es nuestro primer encuentro</p>
-//   )
-// }
 
 
 export default App;
