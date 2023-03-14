@@ -1,7 +1,8 @@
-import './NavBar.css';
 import logo from "../../images/TedLead-logo3.png";
 import 'bootstrap/dist/css/bootstrap.css';
+import './NavBar.css';
 import CartWidget from '../CartWidget';
+import { NavLink } from "react-router-dom";
 
 function NavBar() {
     return <div>
@@ -18,11 +19,11 @@ function NavBar() {
                         <Tab title="Location"/>
                         <Tab title="Reviews"/>
                         <Tab title="Contact"/>
+                        <CartWidget />
                         
                     </ul>
                     
                 </div>
-                <CartWidget />
             </div>
         </nav>
     </div>;
@@ -30,9 +31,9 @@ function NavBar() {
 
 function Logo () {
        return <div>
-            <a className="navbar-brand" href="">
-                <img  src={logo} alt="logo" class="header__logo-img"/>
-            </a>   
+            <NavLink to={"/"}><a className="navbar-brand" href="">
+                <img  src={logo} alt="logo" className="header__logo-img"/>
+            </a></NavLink>
         </div>
 }
 
