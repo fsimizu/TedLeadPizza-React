@@ -12,6 +12,7 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
+  --verdeDark: #5f7e67;
   --verde:#6a8d73;
   --blanco:#f4fdd9;
   --rojo:#f75077;
@@ -19,4 +20,9 @@
 
 body{
   margin: 0px
+}
+
+.swal2-popup {
+  font-size: 0.8rem !important;
+  font-family: Georgia, serif;
 }

@@ -22,12 +22,12 @@
     filter: invert(44%) sepia(10%) saturate(7493%) hue-rotate(313deg) brightness(101%) contrast(94%);
 }
 
-a, a:visited {
+.nav-link, .nav-link:visited, a, a:visited{
     color: inherit !important;
     text-decoration: none;
 }
 
-a:hover{
+.nav-link:hover{
     color: #f75077 !important;
 }
 .navbar {

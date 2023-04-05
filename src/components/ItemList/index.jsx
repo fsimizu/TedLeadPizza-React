@@ -1,14 +1,13 @@
 import Items from "../Items";
 import './ItemList.css';
 
-function ItemList({ products }) {
+function ItemList({ product }) {
 
     return <div>
        
         <ul className="itemList">
-            {products.map((products, index) => (
-                <Items products={products} key={products.id} />
-    
+            {product.map((product, index) => (
+                <Items product={product} key={product.id} />
                 ))}
         </ul>
         

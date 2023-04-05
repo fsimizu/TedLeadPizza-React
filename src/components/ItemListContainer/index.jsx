@@ -1,57 +1,45 @@
 import ItemList from "../ItemList";
 import { useState, useEffect } from "react";
-import Products from "../mocks/products"
-import { NavLink } from "react-router-dom";
+import {collection, getFirestore, getDocs, query, where} from "firebase/firestore"
 
 function ItemListContainer({isCategoryRoute, categoryId}) {
-
-    const [products, setProducts] = useState([]);
+    const [product, setProducts] = useState([]);
 
     useEffect(()=>{
-        const productsPromise = new Promise ((resolve, reject) => {
-            setTimeout(() => {
-                resolve(Products)
-            },2000)
-    })
+        const db = getFirestore()
+        const itemsCollection = collection(db, 'items')
 
-        productsPromise
-            .then((response) => {
-                if (isCategoryRoute) {                
-                    const productsFiltered = response.filter((prod)=> prod.category === categoryId)
-                    setProducts(productsFiltered)
-                } else {
-                    setProducts(response)
-                }
-            })
+        if (isCategoryRoute) {                
+            const queryResult = query (itemsCollection, where ('category', "==", categoryId))
             
+            getDocs(queryResult)
+            .then((snapshot)=>{
+                const docs = snapshot.docs;
+                setProducts(docs.map((doc)=>({id: doc.id, ...doc.data()})
+                ))
+            })
             .catch((err)=>console.log(err))
-    
+
+        } else {
+            getDocs(itemsCollection)
+            .then((snapshot)=>{
+                const docs = snapshot.docs;
+                setProducts(docs.map((doc)=>({id: doc.id, ...doc.data()})
+                ))
+            })
+            .catch((err)=>console.log(err))
+        }
     },[categoryId])
 
-    return ( 
-        <div style= {{margin: 20 + 'px'}}>
-            
-            <label for="category">Select a category</label>
-            {/* <select name="category" id="category">
-                <option hidden disabled selected value></option>
-                <option value="red"><NavLink to={"/category/red"}>Red base</NavLink></option>
-                <option value="white"><NavLink to={"/category/white"}>White base</NavLink></option>
-            </select> */}
+    if(!product) {
+        return <div>
+            Loading...
+            </div>
+    }
 
-            <ul>
-                <li>
-                    <NavLink to={"/"}>All</NavLink>
-                </li>
-                <li>
-                    <NavLink to={"/category/red"}>Red base</NavLink>
-                </li>
-                <li>
-                    <NavLink to={"/category/white"}>White base</NavLink>
-                </li>
-            </ul>
-            
-            
-            <ItemList products={products} />
+    return ( 
+        <div style= {{margin: 20 + 'px'}}>           
+            <ItemList product={product} />
         </div>
 )}
 

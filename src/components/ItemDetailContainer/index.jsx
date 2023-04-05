@@ -1,31 +1,38 @@
 import { useState, useEffect } from "react";
-import Products from "../mocks/products";
 import ItemDetail from "../ItemDetail";
 import './ItemDetailContainer.css';
+import {doc, getDoc, getFirestore} from "firebase/firestore"
+import { useParams } from "react-router-dom";
+
 
 function ItemDetailContainer({itemId}) {
 
-    const [products, setProducts] = useState([]);
+    const [product, setProduct] = useState(null)
+    const params = useParams()
 
     useEffect(()=>{
-        const productsPromise = new Promise ((resolve, reject) => {
-            setTimeout(() => {
-                resolve(Products)
-            },2000)
-    })
-        productsPromise
-            .then((response) => {
-                const itemSelected = response.find(element => element.id == itemId);
-                setProducts(itemSelected)
+        const db = getFirestore()
+        const itemRef = doc(db, 'items', params.id);
 
+        getDoc(itemRef)
+            .then((snapshot)=>{
+                if(snapshot.exists()) {
+                    setProduct({id: snapshot.id, ...snapshot.data()})
+                    
+                }
             })
             .catch((err)=>console.log(err))
     },[])
 
-    return <div className="ItemDetailContainer">
-        <ItemDetail products={products}/>
-        
-    </div>
+    if (!product) {
+        return <p>Loading...</p>
+    }
+
+    return (
+        <div className="ItemDetailContainer">
+            <ItemDetail product = {product}/>
+        </div>
+    )
 }
 
 export default ItemDetailContainer

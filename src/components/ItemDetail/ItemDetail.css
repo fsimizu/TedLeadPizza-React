@@ -1,4 +1,35 @@
 .ItemDetail {
-    width: 600px;
+    max-width: 1200px;
     margin: auto;
+}
+
+.addQuantity {
+    border: 1px solid var(--verde);
+    width: 40px;
+    text-align: center;
+    padding: 5px 0px ;
+
+}
+
+.btn-primary {
+    background-color: var(--verde);
+    border: var(--verde);
+    margin: 5px 0px
+}
+.btn-primary:hover {
+    background-color: var(--verdeDark);
+    border: var(--verdeDark);
+}
+
+.btn-primary:disabled {
+    background-color: #6b757c;
+    border: #6b757c;
+}
+
+.btn-group {
+    margin: 5px 0px
+}
+.btn-danger {
+    background-color: var(--rojo);
+    border: var(--rojo);
 }
