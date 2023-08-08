@@ -1,5 +1,4 @@
-# Documentation
-Readme for the Tedlead Pizza website
+# TedLead Pizzas - E-commerce site in React
 
 This is an e-commerce website where you can order pizzas online and pay via credit card or paypal.
 
